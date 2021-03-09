@@ -3,15 +3,17 @@ import pokemonTypes from '../../../helpers/pokemonTypes'
 import './style.css'
 import {useDispatch, useSelector} from "react-redux";
 import {getOnePokemonAC} from "../../../redux/reducers/mainReducer";
+import {useLocation} from "react-router";
 
 
 const PokemonInfo = () => {
     const dispatch = useDispatch()
     const res = useSelector(state => state.mainPage.one_pokemon )
+    let location = useLocation();
     useEffect(() => {
         let queryId = document.location.search.split('=')
         dispatch(getOnePokemonAC(queryId[1]))
-    }, []);
+    }, [location]);
 
     return (
         <>

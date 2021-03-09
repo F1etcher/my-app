@@ -11,7 +11,7 @@ import {
 } from "../../redux/reducers/mainReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {Pagination} from "@material-ui/lab";
-import AnimatedMulti from "./pokemon/search";
+import {Input} from "@material-ui/core";
 
 
 function MainPage() {
@@ -44,15 +44,20 @@ function MainPage() {
     ]
     let pageCount = Math.ceil(state.totalCount / state.pageSize)
 
-    let setValue = (event) => {
-        let value = event.target.value
-        dispatch(setValueToSearch(value))
-
-    }
-    let search = () => {
-        let value = state.valueForSearch
-
-    }
+    // let setValue = (event) => {
+    //     let value = event.target.value
+    //     dispatch(setValueToSearch(value))
+    //
+    //     console.log(value)
+    // }
+    // const { search } = state;
+    // const filteredPokemons = state.pokemon.filter(country => {
+    //     return country.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+    // });
+    // let search = () => {
+    //     let value = state.valueForSearch
+    //
+    // }
 
     return (
         <div>
@@ -60,9 +65,13 @@ function MainPage() {
                 <h1>Loading...</h1>
             ) : (
                 <>
-                    <Navbar/>
-                    <AnimatedMulti/>
-
+                    {/*<div>*/}
+                    {/*    <Input*/}
+                    {/*        label="Search Country"*/}
+                    {/*        icon="search"*/}
+                    {/*        onChange={setValue}*/}
+                    {/*    />*/}
+                    {/*</div>*/}
                     <div className='btn'>
                         <Pagination count={pageCount} variant="outlined" shape="rounded" page={+state.currentPage}
                                     onChange={onChangePage}/>

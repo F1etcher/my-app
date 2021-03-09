@@ -17,8 +17,13 @@ function* getPokemons({limit, offset}) {
         yield put(setTotalCount(res.data.count))
         const arrToSearch = yield select(state => state.mainPage.search)
         if (arrToSearch <= 0) {
-            const Allpok = yield call(axios.get, `${url}pokemon?limit=100&offset=0`)
-            yield put(setToSearch(Allpok.data.results))
+            const Allpok = yield call(axios.get, `${url}pokemon?limit=${res.data.count}&offset=0`)
+            yield put(setToSearch(Allpok.data.results.map(el => {
+                return {
+                    value: el.name,
+                    label: el.name
+                }
+            })))
         }
         const pok = yield all(res.data.results.map(e => call(axios.get, e.url)))
         yield put(setPokemonsAC(pok.map(el => el.data)))
@@ -38,6 +43,7 @@ function* getOnePokemonInfo({name}) {
 
 
 export default function* pokemonsWatcher() {
-    yield takeLatest(GET_POKEMON, getPokemons)
-    yield takeLatest(GET_ONE_POKEMON, getOnePokemonInfo)
+    yield all([
+        takeLatest(GET_POKEMON, getPokemons),
+        takeLatest(GET_ONE_POKEMON, getOnePokemonInfo)])
 }
