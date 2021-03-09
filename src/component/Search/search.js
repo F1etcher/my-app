@@ -3,21 +3,17 @@ import AsyncSelect from 'react-select/async';
 import {useHistory} from "react-router";
 
 
-
-
-
-function Search (){
+function Search() {
     const state = useSelector(state => state.mainPage.search)
     const history = useHistory()
     console.log(state)
     const filterPokemon = (inputValue) => {
-        return state.filter(i =>
-            {
-                if (inputValue.length < 1){
+        return state.filter(i => {
+                if (inputValue.length < 1) {
                     return false
                 }
-                return i.label.toLowerCase().includes(inputValue.toLowerCase())}
-
+                return i.label.toLowerCase().includes(inputValue.toLowerCase())
+            }
         );
     };
     const loadOptions = (inputValue, callback) => {
@@ -30,13 +26,13 @@ function Search (){
     }
 
 
-    return(
+    return (
         <div>
-        <AsyncSelect
-            value={null}
-            loadOptions={loadOptions}
-            onChange={handeleChange}
-        />
+            <AsyncSelect
+                value={null}
+                loadOptions={loadOptions}
+                onChange={handeleChange}
+            />
         </div>
     )
 }
