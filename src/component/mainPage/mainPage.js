@@ -1,22 +1,18 @@
 import React, {useEffect} from "react";
-import Card from '../Card/Card'
-import './mainPage.css';
-import Navbar from "../Navbar/Navbar";
-import {NavLink} from "react-router-dom";
+import MediaCard from '../Card/Card'
 import {
     getPokemonsAC,
     setCurrentPageAC,
     setPageSize,
-    setValueToSearch,
 } from "../../redux/reducers/mainReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {Pagination} from "@material-ui/lab";
-import {Input} from "@material-ui/core";
+import {Grid} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
 
 
 function MainPage() {
     const state = useSelector(state => state.mainPage)
-
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -44,49 +40,37 @@ function MainPage() {
     ]
     let pageCount = Math.ceil(state.totalCount / state.pageSize)
 
-    // let setValue = (event) => {
-    //     let value = event.target.value
-    //     dispatch(setValueToSearch(value))
-    //
-    //     console.log(value)
-    // }
-    // const { search } = state;
-    // const filteredPokemons = state.pokemon.filter(country => {
-    //     return country.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
-    // });
-    // let search = () => {
-    //     let value = state.valueForSearch
-    //
-    // }
-
+    const useStyles = makeStyles((theme) => ({
+        root: {
+            flexGrow: 1,
+        },
+        paper: {
+            padding: theme.spacing(2),
+            textAlign: 'center',
+            color: theme.palette.text.secondary,
+        },
+    }));
+    const classes = useStyles();
     return (
-        <div>
+        <div className={classes.root}>
             {!state.pokemon.length ? (
                 <h1>Loading...</h1>
             ) : (
                 <>
-                    {/*<div>*/}
-                    {/*    <Input*/}
-                    {/*        label="Search Country"*/}
-                    {/*        icon="search"*/}
-                    {/*        onChange={setValue}*/}
-                    {/*    />*/}
-                    {/*</div>*/}
-                    <div className='btn'>
+                    <div>
                         <Pagination count={pageCount} variant="outlined" shape="rounded" page={+state.currentPage}
                                     onChange={onChangePage}/>
                         <select onChange={onChangePageSize} value={state.pageSize}>
                             {arrOptions.map(el => <option key={el.value} value={el.value}>{el.value}</option>)}
                         </select>
                     </div>
-                    <div className='grid-container'>
+                    <Grid container spacing={2}>
                         {state.pokemon.filter(el => el !== undefined || null).map((pokemon, i) =>
-                            <NavLink to={'/pokemon?=' + pokemon.name} key={i}
-                                     style={{textDecoration: 'none', color: 'black'}}>
-                                <Card key={i} pokemonData={pokemon}/>
-                            </NavLink>
+                            <Grid item xs={2}>
+                                <MediaCard key={i} pokemonData={pokemon}/>
+                            </Grid>
                         )}
-                    </div>
+                    </Grid>
                 </>
             )
             }

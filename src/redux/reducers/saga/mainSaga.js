@@ -18,12 +18,14 @@ function* getPokemons({limit, offset}) {
         const arrToSearch = yield select(state => state.mainPage.search)
         if (arrToSearch <= 0) {
             const Allpok = yield call(axios.get, `${url}pokemon?limit=${res.data.count}&offset=0`)
-            yield put(setToSearch(Allpok.data.results.map(el => {
+            const SearchPokemon = Allpok.data.results.map(el => {
                 return {
                     value: el.name,
                     label: el.name
                 }
-            })))
+            })
+            yield put(setToSearch(SearchPokemon))
+            localStorage.setItem('SearchPokemon',JSON.stringify(SearchPokemon))
         }
         const pok = yield all(res.data.results.map(e => call(axios.get, e.url)))
         yield put(setPokemonsAC(pok.map(el => el.data)))
