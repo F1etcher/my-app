@@ -7,10 +7,10 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import {Grid, LinearProgress, Link} from "@material-ui/core";
-import {useHistory} from "react-router";
+import {Avatar, Grid, LinearProgress, Link} from "@material-ui/core";
 
-const useStyles = makeStyles({
+
+const useStyles = makeStyles((theme) => ({
     root: {},
     media: {
         height: 110,
@@ -22,8 +22,11 @@ const useStyles = makeStyles({
         alignItems: 'center',
         justifyContent: 'spaceBetween',
     },
-    titleInfo: {}
-});
+    large: {
+        width: theme.spacing(18),
+        height: theme.spacing(18),
+    },
+}));
 const BorderLinearProgress = withStyles((theme) => ({
     root: {
         height: 5,
@@ -40,48 +43,49 @@ const BorderLinearProgress = withStyles((theme) => ({
 
 
 function MediaCard(pokemon) {
-    // let history = useHistory();
-    // const handleCardClick = () =>{
-    //     history.push(`/pokemon/?=${pokemon.pokemonData.name}`);
-    // }
+
     const classes = useStyles();
     const normalise = value => (value - 0) * 100 / (300 - 0);
-    return (
-        <Card className={classes.root}>
-            <CardActionArea>
-                <Grid className={classes.card} item xs={12}>
-                    <Link href={`/pokemon/?=${pokemon.pokemonData.name}`}>
-                        <CardMedia
-                            className={classes.media}
-                            component="img"
-                            alt="Contemplative Reptile"
-                            image={pokemon.pokemonData.sprites.front_default}
-                        />
-                    </Link>
-                    <Typography
-                        className={classes.name}
-                        variant="h5"
-                        component="h2">
-                        {pokemon.pokemonData.name}
-                    </Typography>
-                </Grid>
-                <CardContent className={classes.titleInfo}>
-                    {pokemon.pokemonData.stats.map(el =>
-                        <Typography variant="body2" color="textSecondary">
-                            {el.stat.name}
-                            <BorderLinearProgress variant="determinate" value={normalise(el.base_stat)}/>
-                            {el.base_stat}
+
+    if (pokemon) {
+        return (
+            <Card className={classes.root}>
+                <CardActionArea>
+                    <Grid className={classes.card} item xs={12}>
+                        <Link href={`/pokemon/?=${pokemon.pokemonData.name}`}>
+                            <Avatar alt="nope)" variant='circular' src={pokemon.pokemonData.sprites.front_default} className={classes.large} />
+                        </Link>
+                        <Typography
+                            className={classes.name}
+                            variant="h5"
+                            component="h2">
+                            {pokemon.pokemonData.name}
                         </Typography>
-                    )}
-                </CardContent>
-            </CardActionArea>
-            <CardActions>
-                <Button size="small" color="inherit">
-                    Share
-                </Button>
-            </CardActions>
-        </Card>
-    );
+                    </Grid>
+                    <CardContent className={classes.titleInfo}>
+                        {pokemon.pokemonData.stats.map((el, index) =>
+                            <Grid key={index}>
+                                <Typography variant="body2" color="textSecondary">
+                                    {el.stat.name.toUpperCase()}
+                                </Typography>
+                                <BorderLinearProgress variant="determinate" value={normalise(el.base_stat)}/>
+                                <Typography>
+                                    {el.base_stat}
+                                </Typography>
+                            </Grid>
+                        )}
+                    </CardContent>
+                </CardActionArea>
+                <CardActions>
+                    <Button size="small" color="inherit">
+                        Share
+                    </Button>
+                </CardActions>
+            </Card>
+        );
+    }
+    return null
+
 }
 
 export default MediaCard;

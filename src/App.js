@@ -1,12 +1,9 @@
 import React from "react";
-import MainPage from './component/mainPage/mainPage'
-import './App.css';
+import Main from './Pages/Main/Main'
 import {Route} from 'react-router-dom'
-import PokemonInfo from "./component/mainPage/pokemon/pokemonInfo";
+import Pokemon from "./Pages/Pokemon/Pokemon";
 import Navbar from "./component/Navbar";
-import Search from "./component/Search/search";
 import {Container} from "@material-ui/core";
-
 
 
  const App = ()=> {
@@ -14,9 +11,8 @@ import {Container} from "@material-ui/core";
     return (
         <Container maxWidth="xl">
             <Navbar/>
-            <Search/>
-            <Route path='/pokemon' component={PokemonInfo}/>
-            <Route path='/' exact component={MainPage}/>
+            <Route path='/pokemon' component={Pokemon}/>
+            <Route path='/' exact component={Main}/>
         </Container>
     )
 }

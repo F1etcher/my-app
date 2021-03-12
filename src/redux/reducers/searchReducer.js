@@ -1,7 +1,7 @@
 //
 //
 // const initialState = {
-//     pokemon: [],
+//     Pokemon: [],
 // }
 //
 // const SearchReducer = (state = initialState, action) => {

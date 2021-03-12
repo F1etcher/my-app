@@ -1,7 +1,6 @@
 import React, {useEffect} from "react"
-import pokemonTypes from '../../../helpers/pokemonTypes'
 import {useDispatch, useSelector} from "react-redux";
-import {getOnePokemonAC} from "../../../redux/reducers/mainReducer";
+import {getOnePokemonAC} from "../../redux/reducers/mainReducer";
 import {useLocation} from "react-router";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import {Grid, LinearProgress} from "@material-ui/core";
@@ -42,15 +41,16 @@ const BorderLinearProgress = withStyles((theme) => ({
     },
 }))(LinearProgress);
 
-const PokemonInfo = () => {
+const Pokemon = () => {
     const dispatch = useDispatch()
-    const res = useSelector(state => state.mainPage.one_pokemon )
-    console.log(res)
+    const res = useSelector(state => state.mainPage.one_pokemon)
     let location = useLocation();
+
     useEffect(() => {
         let queryId = document.location.search.split('=')
         dispatch(getOnePokemonAC(queryId[1]))
-    }, [location]);
+    }, [location, dispatch]);
+
     const classes = useStyles();
     const normalise = value => (value - 0) * 100 / (300 - 0);
 
@@ -76,12 +76,16 @@ const PokemonInfo = () => {
                             </Typography>
                         </Grid>
                         <CardContent className={classes.titleInfo}>
-                            {res.stats.map(el =>
-                                <Typography variant="body2" color="textSecondary">
-                                    {el.stat.name}
+                            {res.stats.map((el,index) =>
+                                <Grid key={index}>
+                                    <Typography variant="body2" color="textSecondary">
+                                        {el.stat.name.toUpperCase()}
+                                    </Typography>
                                     <BorderLinearProgress variant="determinate" value={normalise(el.base_stat)}/>
-                                    {el.base_stat}
-                                </Typography>
+                                    <Typography>
+                                        {el.base_stat}
+                                    </Typography>
+                                </Grid>
                             )}
                         </CardContent>
                     </CardActionArea>
@@ -97,4 +101,4 @@ const PokemonInfo = () => {
 }
 
 
-export default PokemonInfo
+export default Pokemon
