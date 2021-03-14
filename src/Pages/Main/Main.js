@@ -9,13 +9,10 @@ import Pagination from "../../component/Pagination/Pagination";
 
 function Main() {
     const state = useSelector(state => state.mainPage)
-
     const dispatch = useDispatch()
-
     useEffect(() => {
         dispatch(getPokemonsAC(state.pageSize, 0))
     }, [dispatch, state.pageSize]);
-
     const useStyles = makeStyles((theme) => ({
         root: {
             flexGrow: 1,
@@ -30,9 +27,7 @@ function Main() {
             justifyContent: 'center'
         }
     }))
-
     const classes = useStyles();
-
     return (
         <div className={classes.root}>
             {!state.pokemon.length ? (
