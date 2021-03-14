@@ -8,7 +8,7 @@ export const SET_NEXT_PAGE = 'SET_NEXT_PAGE'
 export const SET_PREV_PAGE = 'SET_PREV_PAGE'
 export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 export const SET_TO_SEARCH = 'SET_TO_SEARCH'
-export const SET_VALUE_TO_SEARCH = 'SET_VALUE_TO_SEARCH'
+export const SET_FAVORITE = 'SET_FAVORITE'
 
 const initialState = {
     pokemon: [],
@@ -17,8 +17,7 @@ const initialState = {
     pageSize: 20,
     currentPage: 1,
     search: [],
-    valueForSearch: []
-
+    favorite: []
 }
 
 const mainReducer = (state = initialState, action) => {
@@ -50,9 +49,9 @@ const mainReducer = (state = initialState, action) => {
                 ...state, currentPage: action.page
             }
         }
-        case SET_VALUE_TO_SEARCH: {
+        case SET_FAVORITE: {
             return {
-                ...state, valueForSearch: action.value
+                ...state, setFavorite: action.favorite
             }
         }
         default:
@@ -70,5 +69,6 @@ export const setNextPage = (next) => ({type: SET_NEXT_PAGE, next})
 export const setPrevPage = (prev) => ({type: SET_PREV_PAGE, prev})
 export const setCurrentPageAC = (page) => ({type: SET_CURRENT_PAGE, page})
 export const setToSearch = (search) => ({type: SET_TO_SEARCH, search})
+export const setFavorite = (favorite) => ({type: SET_FAVORITE, favorite})
 
 export default mainReducer

@@ -6,7 +6,18 @@ import {
 } from "../../redux/reducers/mainReducer";
 import {useDispatch} from "react-redux";
 import {Pagination as Pag} from "@material-ui/lab";
-import {Grid} from "@material-ui/core";
+import {FormControl, Grid, InputLabel, Select} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+    pagin: {
+        padding: 10
+    },
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+    },
+}));
 
 function Pagination({state}) {
     const dispatch = useDispatch()
@@ -28,17 +39,32 @@ function Pagination({state}) {
         {value: 50}
     ]
     let pageCount = Math.ceil(state.totalCount / state.pageSize)
+    const classes = useStyles();
 
     return (
-        <Grid>
-            <Pag count={pageCount} variant="outlined"
+        <Grid container direction="row" justify="center" alignItems="center">
+            <Pag className={classes.pagin}
+                 count={pageCount}
+                 variant="outlined"
+                 shape="rounded"
                  color="primary"
                  page={+state.currentPage}
-                 onChange={onChangePage}/>
+                 onChange={onChangePage}
+            />
             <Grid>
-                <select onChange={onChangePageSize} value={state.pageSize}>
-                    {arrOptions.map(el => <option key={el.value} value={el.value}>{el.value}</option>)}
-                </select>
+                <FormControl variant="standard" className={classes.formControl}>
+                    <InputLabel htmlFor="Page-Size">Page Size</InputLabel>
+                    <Select
+                        native
+                        value={state.pageSize}
+                        onChange={onChangePageSize}
+                    >
+                        {arrOptions.map(el => <option key={el.value} value={el.value}>{el.value}</option>)}
+                    </Select>
+                </FormControl>
+                {/*<select onChange={onChangePageSize} value={state.pageSize}>*/}
+                {/*    {arrOptions.map(el => <option key={el.value} value={el.value}>{el.value}</option>)}*/}
+                {/*</select>*/}
             </Grid>
         </Grid>
     )
