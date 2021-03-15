@@ -62,9 +62,6 @@ function Pagination({state}) {
                         {arrOptions.map(el => <option key={el.value} value={el.value}>{el.value}</option>)}
                     </Select>
                 </FormControl>
-                {/*<select onChange={onChangePageSize} value={state.pageSize}>*/}
-                {/*    {arrOptions.map(el => <option key={el.value} value={el.value}>{el.value}</option>)}*/}
-                {/*</select>*/}
             </Grid>
         </Grid>
     )
