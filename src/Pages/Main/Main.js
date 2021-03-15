@@ -7,6 +7,7 @@ import {getPokemonsAC} from "../../redux/reducers/mainReducer";
 import Pagination from "../../component/Pagination/Pagination";
 
 
+
 function Main() {
     const state = useSelector(state => state.mainPage)
     const dispatch = useDispatch()
@@ -28,6 +29,7 @@ function Main() {
         }
     }))
     const classes = useStyles();
+
     return (
         <div className={classes.root}>
             {!state.pokemon.length ? (

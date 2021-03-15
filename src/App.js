@@ -4,7 +4,9 @@ import {Route} from 'react-router-dom'
 import Pokemon from "./Pages/Pokemon/Pokemon";
 import Navbar from "./component/Navbar";
 import {Container} from "@material-ui/core";
-import SimpleModal from "./test";
+import SimpleModal from "./component/Modal/Modal";
+
+
 
 
  const App = ()=> {
@@ -12,6 +14,7 @@ import SimpleModal from "./test";
     return (
         <Container maxWidth="xl">
             <Navbar/>
+            <SimpleModal/>
             <Route path='/pokemon' component={Pokemon}/>
             <Route path='/' exact component={Main}/>
         </Container>

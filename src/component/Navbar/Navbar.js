@@ -3,9 +3,11 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
+import {makeStyles} from '@material-ui/core/styles';
 import Search from "../Search/Search";
+import StarIcon from '@material-ui/icons/Star';
+import {Badge} from "@material-ui/core";
+import {useSelector} from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Navbar() {
+    const state = useSelector(state => state.modalPage)
     const classes = useStyles();
 
     return (
@@ -39,7 +42,9 @@ export default function Navbar() {
                         color="inherit"
                         aria-label="open drawer"
                     >
-                        <MenuIcon />
+                        <Badge badgeContent={11} color="secondary">
+                            <StarIcon/>
+                        </Badge>
                     </IconButton>
                     <Typography className={classes.title} variant="h6" noWrap>
                         Pokemon

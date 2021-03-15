@@ -2,13 +2,13 @@ import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import mainReducer from "./reducers/mainReducer";
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from "./sagas/mainSaga";
-import SearchReducer from "./reducers/searchReducer";
+import modalReducer from "./reducers/modalReducer";
 
 
 const reducers = combineReducers(
     {
         mainPage: mainReducer,
-        searchPage: SearchReducer
+        modalPage: modalReducer
     }
 )
 const sagaMiddleware = createSagaMiddleware()
