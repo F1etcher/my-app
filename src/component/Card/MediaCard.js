@@ -1,6 +1,5 @@
 import React from 'react';
 import {makeStyles, withStyles} from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import {Avatar, Box, LinearProgress, Paper} from "@material-ui/core";
@@ -18,9 +17,6 @@ const useStyles = makeStyles((theme) => ({
         height: theme.spacing(18),
         margin: 'auto'
     },
-    menuButton: {
-        margin: 'auto'
-    },
     favorite: {
         display: 'flex',
         justifyContent: 'flex-end',
@@ -31,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'visible',
         transition: '0.2s',
         '&:hover': {
-            transform: 'translate3D(20px, -20px, 50px)'
+            transform: 'translateY(-20px)'
         },
         '&:before': {
             content: '""',
@@ -69,9 +65,8 @@ function MediaCard(pokemon) {
     if (pokemon.pokemonData) {
         return (
             <Paper elevation={5} className={classes.card} >
-                <Card>
                     <Box className={classes.favorite}>
-                        <IconButton onClick={addToFavorite} aria-label="delete" className={classes.margin}>
+                        <IconButton onClick={addToFavorite} aria-label="delete">
                             <StarIcon/>
                         </IconButton>
                     </Box>
@@ -98,7 +93,6 @@ function MediaCard(pokemon) {
                             </Box>
                         )}
                     </CardContent>
-                </Card>
             </Paper>
         );
     }
