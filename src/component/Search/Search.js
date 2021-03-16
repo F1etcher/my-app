@@ -3,12 +3,11 @@ import AsyncSelect from 'react-select/async';
 import {useHistory} from "react-router";
 
 const customStyles = {
-    option: (provided, state) => ({
+    control: (provided, state) => ({
         ...provided,
-        borderBottom: '1px dotted pink',
         color: state.isSelected ? 'blue' : 'black',
-        padding: 20,
-    })
+        width: 200
+    }),
 }
 
 function Search() {

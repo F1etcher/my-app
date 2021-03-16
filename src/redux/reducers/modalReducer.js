@@ -4,6 +4,7 @@ export const SET_ONE_PAGE ='SET_ONE_PAGE'
 const initialState = {
     modal: false,
     pageModal: null
+
 }
 
 const modalReducer = (state = initialState, action) => {

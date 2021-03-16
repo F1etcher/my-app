@@ -2,11 +2,11 @@ import React from 'react';
 import Modal from "@material-ui/core/Modal";
 import {useDispatch, useSelector} from "react-redux";
 import {setOpen} from "../../redux/reducers/modalReducer";
-import {Avatar, Grid, LinearProgress, makeStyles} from "@material-ui/core";
+import {Avatar, Box, CircularProgress, LinearProgress, makeStyles, Paper} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
 import {withStyles} from "@material-ui/core/styles";
-
+import Card from "@material-ui/core/Card";
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -38,15 +38,12 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         position: 'absolute',
         width: 400,
-        backgroundColor: theme.palette.background.paper,
-        border: '2px solid #000',
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
     },
 }));
 
 export default function SimpleModal() {
-    const state = useSelector(state => state.modalPage)
+    const state = useSelector(state => state.favoritePage)
+    const modalState = useSelector(state => state.modalPage)
     const dispatch = useDispatch()
     const classes = useStyles()
     const [modalStyle] = React.useState(getModalStyle);
@@ -54,41 +51,46 @@ export default function SimpleModal() {
         dispatch(setOpen(false))
     }
     const normalise = value => (value - 0) * 100 / (300 - 0)
-    console.log(state)
 
-    const body = state.pageModal? (
+
+    const body = state.favoritePokemons? (
         <div style={modalStyle} className={classes.paper}>
-                <Grid className={classes.card} item xs={12}>
-                    <Avatar alt="nope)" variant='circular' src={state.pageModal.sprites.front_default}
+            <Paper elevation={3}>
+                {state.favoritePokemons.map((el, index) =>
+                <Card key={index} className={classes.card}>
+                    <Avatar alt="nope)" variant='circular' src={el.sprites.front_default}
                             className={classes.large}/>
                     <Typography
+                        color='primary'
                         align='center'
-                        className={classes.name}
                         variant="h5"
-                        component="h2">
-                        {state.pageModal.name}
+                        component="h4"
+                        gutterBottom>
+                        {el.name}
                     </Typography>
-                </Grid>
-                <CardContent className={classes.titleInfo}>
-                    {state.pageModal.stats.map((el, index) =>
-                        <Grid key={index}>
-                            <Typography align='center' variant="body2" color="textSecondary">
-                                {el.stat.name.toUpperCase()}
-                            </Typography>
-                            <BorderLinearProgress variant="determinate" value={normalise(el.base_stat)}/>
-                            <Typography>
-                                {el.base_stat}
-                            </Typography>
-                        </Grid>
-                    )}
-                </CardContent>
+                    <CardContent>
+                        {el.stats.map((el, index) =>
+                            <Box key={index}>
+                                <Typography align='center' variant="body1" color="textSecondary">
+                                    {el.stat.name.toUpperCase()}
+                                </Typography>
+                                <BorderLinearProgress variant="determinate" value={normalise(el.base_stat)}/>
+                                <Typography>
+                                    {el.base_stat}
+                                </Typography>
+                            </Box>
+                        )}
+                    </CardContent>
+                </Card>
+                )}
+            </Paper>
         </div>
-    ) : null
+    ) : <CircularProgress/>
 
 
     return (
         <Modal
-            open={state.modal}
+            open={modalState.modal}
             onClose={onClose}
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
