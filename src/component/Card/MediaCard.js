@@ -68,7 +68,7 @@ function MediaCard(pokemon) {
 
     if (pokemon.pokemonData) {
         return (
-            <Paper elevation={3} className={classes.card} >
+            <Paper elevation={5} className={classes.card} >
                 <Card>
                     <Box className={classes.favorite}>
                         <IconButton onClick={addToFavorite} aria-label="delete" className={classes.margin}>
