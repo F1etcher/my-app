@@ -7,7 +7,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import Search from "../Search/Search";
 import StarIcon from '@material-ui/icons/Star';
 import {Badge, Box} from "@material-ui/core";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 
 
@@ -31,10 +31,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Navbar() {
     const state = useSelector(state => state.favoritePage)
     const classes = useStyles();
-    const dispatch = useDispatch()
-    // const onOpen = () => {
-    //     dispatch(setOpen(true))
-    // }
+
     return (
         <AppBar position='sticky'>
             <Toolbar>

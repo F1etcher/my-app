@@ -8,13 +8,33 @@ import {
     setTotalCount
 } from "../reducers/mainReducer";
 import axios from "axios";
-import {ADD_ALL_TYPES, getTypesPokemons} from "../reducers/typesReducer";
+import {
+    ADD_ALL_TYPES,
+    changeTypesState,
+    GET_ALL_TYPES,
+    getTypesPokemons,
+    setTypesPokemons
+} from "../reducers/typesReducer";
 
 const url = 'https://pokeapi.co/api/v2/'
 
 function* getPokemons({limit, offset}) {
     try {
-        const res = yield call(axios.get, `${url}pokemon?limit=${limit}&offset=${offset}`)
+        const SuitablePokemons = yield select(state => state.typesPage.allSuitablePokemons)
+        let res = {
+            data: {
+                results: [],
+                count: SuitablePokemons.length
+            }
+        }
+        if (SuitablePokemons.length){
+            let filtered = SuitablePokemons.slice(offset,offset+ limit)
+            res.data.results = filtered.map((el)=>({
+                url: el
+            }))
+        }else {
+            res = yield call(axios.get, `${url}pokemon?limit=${limit}&offset=${offset}`)
+        }
         yield put(setTotalCount(res.data.count))
         const arrToSearch = yield select(state => state.mainPage.search)
         if (arrToSearch <= 0) {
@@ -53,7 +73,12 @@ function* getAllTypesPokemons() {
                     return e
                 }
             })()))
-        yield put(getTypesPokemons(typesSet.map(el => el.data)))
+        yield put(setTypesPokemons(typesSet.map(el => el.data)))
+
+        yield put(changeTypesState(types.data.results.reduce((prev,cur)=>{
+            return {...prev, [cur.name]: false}
+        },{})))
+
     } catch (e) {
         console.log(e.message)
     }
@@ -73,5 +98,5 @@ export default function* pokemonsWatcher() {
     yield all([
         takeLatest(GET_POKEMON, getPokemons),
         takeLatest(GET_ONE_POKEMON, getOnePokemonInfo),
-        takeLatest(ADD_ALL_TYPES, getAllTypesPokemons)])
+        takeLatest(GET_ALL_TYPES, getAllTypesPokemons)])
 }

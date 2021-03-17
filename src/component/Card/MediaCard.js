@@ -63,6 +63,7 @@ function MediaCard(pokemon) {
     const addToFavorite = () => {
         dispatch(addFavoritePokemon(pokemon.pokemonData))
     }
+
     let history = useHistory()
     function handleClick() {
         history.push(`/pokemon/${pokemon.pokemonData.name}`);

@@ -9,8 +9,8 @@ import Pagination from "../../component/Pagination/Pagination";
 function Main() {
     const state = useSelector(state => state.mainPage)
     const dispatch = useDispatch()
+
     useEffect(() =>{
-        
         const offset = state.pageSize * state.currentPage - state.pageSize
         dispatch(getPokemonsAC(state.pageSize, offset))
     }, [dispatch, state.pageSize]);

@@ -28,7 +28,7 @@ function Search() {
         }, 500);
     };
     const handelChange = (prop) => {
-        history.push(`/pokemon?=${prop.value}`)
+        history.push(`/pokemon/${prop.value}`)
     }
 
 
