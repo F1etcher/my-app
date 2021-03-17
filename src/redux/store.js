@@ -4,13 +4,15 @@ import createSagaMiddleware from 'redux-saga'
 import rootSaga from "./sagas/mainSaga";
 import modalReducer from "./reducers/modalReducer";
 import favoriteReducer from "./reducers/favoriteReducer";
+import typesReducer from "./reducers/typesReducer";
 
 
 const reducers = combineReducers(
     {
         mainPage: mainReducer,
         modalPage: modalReducer,
-        favoritePage: favoriteReducer
+        favoritePage: favoriteReducer,
+        typesPage: typesReducer
     }
 )
 const sagaMiddleware = createSagaMiddleware()

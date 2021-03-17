@@ -1,7 +1,7 @@
 import React, {useEffect} from "react"
 import {useDispatch, useSelector} from "react-redux";
 import {getOnePokemonAC} from "../../redux/reducers/mainReducer";
-import {useLocation} from "react-router";
+import {useParams} from "react-router";
 import {Avatar, Box,LinearProgress} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
@@ -39,11 +39,10 @@ const BorderLinearProgress = withStyles((theme) => ({
 const Pokemon = () => {
     const dispatch = useDispatch()
     const res = useSelector(state => state.mainPage.one_pokemon)
-    let location = useLocation();
+    const { name } = useParams();
     useEffect(() => {
-        let queryId = document.location.search.split('=')
-        dispatch(getOnePokemonAC(queryId[1]))
-    }, [location, dispatch]);
+        dispatch(getOnePokemonAC(name))
+    }, [ dispatch]);
     const classes = useStyles();
     const normalise = value => (value - 0) * 100 / (300 - 0);
     return (

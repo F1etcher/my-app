@@ -8,7 +8,8 @@ import Search from "../Search/Search";
 import StarIcon from '@material-ui/icons/Star';
 import {Badge, Box} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
-import {setOpen} from "../../redux/reducers/modalReducer";
+import {Link} from "react-router-dom";
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,25 +32,26 @@ export default function Navbar() {
     const state = useSelector(state => state.favoritePage)
     const classes = useStyles();
     const dispatch = useDispatch()
-    const onOpen = () => {
-        dispatch(setOpen(true))
-    }
+    // const onOpen = () => {
+    //     dispatch(setOpen(true))
+    // }
     return (
         <AppBar position='sticky'>
             <Toolbar>
-                <Typography variant="h6" className={classes.title}>Pokemon</Typography>
+                    <Typography variant="h6" className={classes.title}><Link style={{ textDecoration: 'none', color: '#ffffff' }} to="/">Pokemon</Link></Typography>
                 <Box mr={2} className={classes.search}>
-                    <IconButton
-                        edge="start"
-                        className={classes.menuButton}
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={onOpen}
-                    >
-                        <Badge badgeContent={state.favoritePokemons.length} color="primary">
-                            <StarIcon/>
-                        </Badge>
-                    </IconButton>
+                    <Link to="/favorite">
+                        <IconButton
+                            edge="start"
+                            className={classes.menuButton}
+                            color="inherit"
+                            aria-label="open drawer"
+                        >
+                            <Badge badgeContent={state.favoritePokemons.length} color="primary">
+                                <StarIcon/>
+                            </Badge>
+                        </IconButton>
+                    </Link>
                     <Search/>
                 </Box>
             </Toolbar>

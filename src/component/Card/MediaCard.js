@@ -7,6 +7,8 @@ import {useDispatch} from "react-redux";
 import StarIcon from '@material-ui/icons/Star';
 import IconButton from "@material-ui/core/IconButton";
 import {addFavoritePokemon} from "../../redux/reducers/favoriteReducer";
+import {Link} from "react-router-dom";
+import {useHistory} from "react-router";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -61,42 +63,45 @@ function MediaCard(pokemon) {
     const addToFavorite = () => {
         dispatch(addFavoritePokemon(pokemon.pokemonData))
     }
-
+    let history = useHistory()
+    function handleClick() {
+        history.push(`/pokemon/${pokemon.pokemonData.name}`);
+    }
     if (pokemon.pokemonData) {
         return (
-            <Paper elevation={5} className={classes.card} >
-                    <Box className={classes.favorite}>
-                        <IconButton onClick={addToFavorite} aria-label="delete">
-                            <StarIcon/>
-                        </IconButton>
-                    </Box>
-                    <Avatar alt="nope)" variant='circular' src={pokemon.pokemonData.sprites.front_default}
+            <Paper elevation={5} className={classes.card}>
+                <Box className={classes.favorite}>
+                    <IconButton onClick={addToFavorite} aria-label="delete">
+                        <StarIcon/>
+                    </IconButton>
+                </Box>
+                    <Avatar onClick={handleClick} alt="nope)" variant='circular' src={pokemon.pokemonData.sprites.front_default}
                             className={classes.large}/>
-                    <Typography
-                        color='primary'
-                        align='center'
-                        variant="h5"
-                        component="h4"
-                        gutterBottom>
-                        {pokemon.pokemonData.name}
-                    </Typography>
-                    <CardContent>
-                        {pokemon.pokemonData.stats.map((el, index) =>
-                            <Box key={index}>
-                                <Typography align='center' variant="body1" color="textSecondary">
-                                    {el.stat.name.toUpperCase()}
-                                </Typography>
-                                <BorderLinearProgress variant="determinate" value={normalise(el.base_stat)}/>
-                                <Typography>
-                                    {el.base_stat}
-                                </Typography>
-                            </Box>
-                        )}
-                    </CardContent>
+                <Typography
+                    color='primary'
+                    align='center'
+                    variant="h5"
+                    component="h4"
+                    gutterBottom>
+                    {pokemon.pokemonData.name}
+                </Typography>
+                <CardContent>
+                    {pokemon.pokemonData.stats.map((el, index) =>
+                        <Box key={index}>
+                            <Typography align='center' variant="body1" color="textSecondary">
+                                {el.stat.name.toUpperCase()}
+                            </Typography>
+                            <BorderLinearProgress variant="determinate" value={normalise(el.base_stat)}/>
+                            <Typography>
+                                {el.base_stat}
+                            </Typography>
+                        </Box>
+                    )}
+                </CardContent>
             </Paper>
         );
     }
-    return <LinearProgress />
+    return <LinearProgress/>
 }
 
 export default MediaCard;
