@@ -7,7 +7,6 @@ import {useDispatch} from "react-redux";
 import StarIcon from '@material-ui/icons/Star';
 import IconButton from "@material-ui/core/IconButton";
 import {addFavoritePokemon} from "../../redux/reducers/favoriteReducer";
-import {Link} from "react-router-dom";
 import {useHistory} from "react-router";
 
 const useStyles = makeStyles((theme) => ({
@@ -55,7 +54,6 @@ const BorderLinearProgress = withStyles((theme) => ({
     },
 }))(LinearProgress);
 
-
 function MediaCard(pokemon) {
     const dispatch = useDispatch()
     const classes = useStyles()
@@ -63,7 +61,6 @@ function MediaCard(pokemon) {
     const addToFavorite = () => {
         dispatch(addFavoritePokemon(pokemon.pokemonData))
     }
-
     let history = useHistory()
     function handleClick() {
         history.push(`/pokemon/${pokemon.pokemonData.name}`);

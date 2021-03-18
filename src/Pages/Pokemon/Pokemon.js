@@ -42,7 +42,7 @@ const Pokemon = () => {
     const { name } = useParams();
     useEffect(() => {
         dispatch(getOnePokemonAC(name))
-    }, [ dispatch]);
+    }, [dispatch, name]);
     const classes = useStyles();
     const normalise = value => (value - 0) * 100 / (300 - 0);
     return (

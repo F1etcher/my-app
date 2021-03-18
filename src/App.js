@@ -8,6 +8,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import FavoriteCards from "./Pages/Favorite/Favorite";
 import CheckboxFilters from "./Pages/Types/TypesFilter";
 
+
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -20,7 +21,6 @@ const App = () => {
     return (
         <div className={classes.root}>
             <Navbar/>
-            <CheckboxFilters/>
             <Paper variant="outlined">
                 <Container maxWidth='xl'>
                     <Route path='/' exact component={Main}/>

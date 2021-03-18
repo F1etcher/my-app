@@ -13,7 +13,7 @@ function Main() {
     useEffect(() =>{
         const offset = state.pageSize * state.currentPage - state.pageSize
         dispatch(getPokemonsAC(state.pageSize, offset))
-    }, [dispatch, state.pageSize]);
+    }, [dispatch, state.pageSize,state.currentPage ]);
 
     return (
         <>

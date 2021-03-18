@@ -1,5 +1,5 @@
 import React from 'react';
-import {makeStyles, withStyles} from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import {Avatar, Box, Grid, LinearProgress, Paper} from "@material-ui/core";
 import {useSelector} from "react-redux";
@@ -15,28 +15,12 @@ const useStyles = makeStyles((theme) => ({
         height: theme.spacing(18),
         margin: 'auto'
     },
-    card: {},
 }));
 
-
-const BorderLinearProgress = withStyles((theme) => ({
-    root: {
-        height: 5,
-        borderRadius: 5,
-    },
-    colorPrimary: {
-        backgroundColor: theme.palette.grey[theme.palette.type === 'light' ? 200 : 700],
-    },
-    bar: {
-        borderRadius: 5,
-        backgroundColor: '#1a90ff',
-    },
-}))(LinearProgress);
 
 function FavoriteCards() {
     const stateFavorite = useSelector(state => state.favoritePage)
     const classes = useStyles()
-    const normalise = value => (value - 0) * 100 / (300 - 0)
 
     if (stateFavorite.favoritePokemons) {
         return (

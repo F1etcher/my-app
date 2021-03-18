@@ -9,10 +9,8 @@ import {
 } from "../reducers/mainReducer";
 import axios from "axios";
 import {
-    ADD_ALL_TYPES,
     changeTypesState,
     GET_ALL_TYPES,
-    getTypesPokemons,
     setTypesPokemons
 } from "../reducers/typesReducer";
 
@@ -92,7 +90,6 @@ function* getOnePokemonInfo({name}) {
         console.log(e.message)
     }
 }
-
 
 export default function* pokemonsWatcher() {
     yield all([

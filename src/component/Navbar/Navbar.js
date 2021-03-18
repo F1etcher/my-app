@@ -9,6 +9,7 @@ import StarIcon from '@material-ui/icons/Star';
 import {Badge, Box} from "@material-ui/core";
 import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
+import CheckboxFilters from "../../Pages/Types/TypesFilter";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -24,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
     search: {
         display: 'inline-flex'
     },
-
 }));
 
 
@@ -52,6 +52,7 @@ export default function Navbar() {
                     <Search/>
                 </Box>
             </Toolbar>
+            <CheckboxFilters/>
         </AppBar>
     );
 }
