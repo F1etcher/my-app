@@ -55,7 +55,6 @@ const Pokemon = () => {
                             className={classes.large}/>
                     <Typography
                         align='center'
-                        className={classes.name}
                         variant="h5"
                         component="h3">
                         {res.name}
@@ -78,6 +77,5 @@ const Pokemon = () => {
         </>
     )
 };
-
 
 export default Pokemon

@@ -1,7 +1,7 @@
 import {put, takeLatest, all, call, select} from 'redux-saga/effects'
 import {
     GET_ONE_POKEMON,
-    GET_POKEMON,
+    GET_POKEMON, requestedData,
     setOnePokemonAC,
     setPokemonsAC,
     setToSearch,
@@ -18,6 +18,7 @@ const url = 'https://pokeapi.co/api/v2/'
 
 function* getPokemons({limit, offset}) {
     try {
+        yield put(requestedData(true))
         const SuitablePokemons = yield select(state => state.typesPage.allSuitablePokemons)
         let res = {
             data: {
@@ -55,7 +56,9 @@ function* getPokemons({limit, offset}) {
                 }
             })()))
         yield put(setPokemonsAC(pok.filter(el => el).map(el => el.data)))
+        yield put(requestedData(false))
     } catch (e) {
+        yield put(requestedData(false))
         console.log(e.message)
     }
 }

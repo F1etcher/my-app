@@ -14,16 +14,9 @@ import {makeStyles} from "@material-ui/core/styles";
 import {Typography} from "@material-ui/core";
 
 const useStyles = makeStyles({
-    root: {
-
-    },
     heading: {
         margin: 'auto'
     },
-    name: {
-
-    }
-
 });
 
 export default function CheckboxFilters() {
@@ -35,7 +28,6 @@ export default function CheckboxFilters() {
     useEffect(() => {
         dispatch(getTypesPokemons())
     }, [dispatch])
-
     const typesStateRef = useRef(types.typesState)
     if (!deep(typesStateRef.current, types.typesState)) {
         typesStateRef.current = types.typesState
@@ -61,7 +53,11 @@ export default function CheckboxFilters() {
 
             >
                 <Typography
-                    align='center'>
+                    color='primary'
+                    variant="h5"
+                    component="h4"
+                    className={classes.heading}
+                    >
                     Filter Types
                 </Typography>
             </AccordionSummary>

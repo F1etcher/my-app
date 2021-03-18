@@ -8,6 +8,7 @@ export const SET_NEXT_PAGE = 'SET_NEXT_PAGE'
 export const SET_PREV_PAGE = 'SET_PREV_PAGE'
 export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 export const SET_TO_SEARCH = 'SET_TO_SEARCH'
+export const REQUESTED_DATA = 'REQUESTED_DATA'
 
 
 const initialState = {
@@ -17,10 +18,15 @@ const initialState = {
     pageSize: 20,
     currentPage: 1,
     search: [],
+    loading: false
 }
 
 const mainReducer = (state = initialState, action) => {
     switch (action.type) {
+        case REQUESTED_DATA:
+            return {
+                ...state, loading: action.loading
+            }
         case SET_POKEMON:
             return {
                 ...state, pokemon: action.pokemons
@@ -63,6 +69,7 @@ export const setNextPage = (next) => ({type: SET_NEXT_PAGE, next})
 export const setPrevPage = (prev) => ({type: SET_PREV_PAGE, prev})
 export const setCurrentPageAC = (page) => ({type: SET_CURRENT_PAGE, page})
 export const setToSearch = (search) => ({type: SET_TO_SEARCH, search})
+export const requestedData = (loading) => ({type: REQUESTED_DATA, loading})
 
 
 export default mainReducer
